@@ -20,6 +20,7 @@ async function hydrate() {
     .use(LanguageDetector)
     .use(Backend)
     .init({
+      ...i18n,
       ns: getInitialNamespaces(),
       backend: { loadPath: "/locales/{{lng}}/{{ns}}.json" },
       detection: {
@@ -32,9 +33,11 @@ async function hydrate() {
 startTransition(() => {
   hydrateRoot(
     document,
-    <StrictMode>
-      <RemixBrowser />
-    </StrictMode>
+    <I18nextProvider i18n={i18next}>
+      <StrictMode>
+        <RemixBrowser />
+      </StrictMode>
+    </I18nextProvider>
   );
 });
 
