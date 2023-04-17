@@ -8,6 +8,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { useChangeLanguage } from "remix-i18next";
+import { useTranslation } from "react-i18next";
+import i18next from "~/i18next.server";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
@@ -17,12 +20,21 @@ export const links: LinksFunction = () => {
 };
 
 export async function loader({ request }: LoaderArgs) {
-  return json({
-    user: await getUser(request),
-  });
+  let locale = await i18next.getLocale(request);
+  return json({ locale });
 }
 
+export let handle = {
+  i18next: "common",
+};
+
 export default function App() {
+  let { locale } = useDataLoader<typeof loader>();
+
+  let { i18n } = useTranslation();
+
+  useChangeLanguage(locale);
+
   return (
     <html lang="en" className="h-full">
       <head>

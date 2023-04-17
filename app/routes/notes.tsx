@@ -1,6 +1,7 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
+import { useTranslation } from "react-i18next";
 
 import { requireUserId } from "~/session.server";
 import { useUser } from "~/utils";
@@ -16,12 +17,15 @@ export default function NotesPage() {
   const data = useLoaderData<typeof loader>();
   const user = useUser();
 
+  let { translate } = useTranslation();
+
   return (
     <div className="flex h-full min-h-screen flex-col">
       <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
         <h1 className="text-3xl font-bold">
           <Link to=".">Notes</Link>
         </h1>
+        <h2>{translate("greeting")}</h2>
         <p>{user.email}</p>
         <Form action="/logout" method="post">
           <button
