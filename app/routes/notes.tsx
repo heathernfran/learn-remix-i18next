@@ -7,6 +7,10 @@ import { requireUserId } from "~/session.server";
 import { useUser } from "~/utils";
 import { getNoteListItems } from "~/models/note.server";
 
+import { SharedComponent } from "~/shared/banking/SharedComponent";
+
+export const handle = { i18n: ["shared.banking", ] };
+
 export async function loader({ request }: LoaderArgs) {
   const userId = await requireUserId(request);
   const noteListItems = await getNoteListItems({ userId });
@@ -17,7 +21,7 @@ export default function NotesPage() {
   const data = useLoaderData<typeof loader>();
   const user = useUser();
 
-  let { translate } = useTranslation();
+  let { t } = useTranslation();
 
   return (
     <div className="flex h-full min-h-screen flex-col">
@@ -25,7 +29,10 @@ export default function NotesPage() {
         <h1 className="text-3xl font-bold">
           <Link to=".">Notes</Link>
         </h1>
-        <h2>{translate("greeting")}</h2>
+        <h2>{t("greeting")}</h2>
+        <h3>
+          <SharedComponent />
+        </h3>
         <p>{user.email}</p>
         <Form action="/logout" method="post">
           <button

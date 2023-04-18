@@ -2,9 +2,12 @@ import type { ActionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 
 import { createNote } from "~/models/note.server";
 import { requireUserId } from "~/session.server";
+
+export let handle = { i18n: "home" };
 
 export async function action({ request }: ActionArgs) {
   const userId = await requireUserId(request);
@@ -33,6 +36,7 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function NewNotePage() {
+  let { t } = useTranslation("home");
   const actionData = useActionData<typeof action>();
   const titleRef = React.useRef<HTMLInputElement>(null);
   const bodyRef = React.useRef<HTMLTextAreaElement>(null);
@@ -56,6 +60,7 @@ export default function NewNotePage() {
       }}
     >
       <div>
+        <h1>{t("title")}</h1>
         <label className="flex w-full flex-col gap-1">
           <span>Title: </span>
           <input
