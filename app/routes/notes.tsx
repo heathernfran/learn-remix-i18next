@@ -9,7 +9,7 @@ import { getNoteListItems } from "~/models/note.server";
 
 import { SharedComponent } from "~/shared/banking/SharedComponent";
 
-export const handle = { i18n: ["shared.banking", ] };
+export const handle = { i18n: ["shared.banking"] };
 
 export async function loader({ request }: LoaderArgs) {
   const userId = await requireUserId(request);
