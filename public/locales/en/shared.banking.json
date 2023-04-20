@@ -1,3 +1,5 @@
 {
-  "hello": "Hi there"
+  "SharedComponent": {
+    "fromShared": "From Banking SharedComponent"
+  }
 }
