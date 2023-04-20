@@ -36,7 +36,7 @@ export async function loader({ request }: LoaderArgs) {
 function loadData(language: string, namespace: string) {
   // __dirname ends up being within the build directory, not relative to this
   // source file
-  const filePath = `${__dirname}/../public/locales/${language}/${namespace}.json`;
+  const filePath = `${__dirname}/../app/locales/${namespace}/${language}.json`;
 
   return readFile(filePath, "utf-8").then(
     (fileContent) => JSON.parse(fileContent),
